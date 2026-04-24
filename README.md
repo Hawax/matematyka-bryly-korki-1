@@ -5,7 +5,7 @@ Interaktywna strona do pracy z matematyką: wizualizacje, zadania, generatory ć
 ## Tematy
 
 - Pola figur płaskich
-- Ułamki dziesiętne: miary, wagi, temperatura, zegar
+- Ułamki zwykłe i dziesiętne: porównywanie, skracanie, różne mianowniki, miary, wagi, temperatura, zegar
 - Siatki figur geometrycznych i proste pole brył
 - Kalendarz i ćwiczenia kalendarzowe
 

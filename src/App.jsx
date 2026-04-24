@@ -9,7 +9,7 @@ const STORAGE_KEYS = {
 const sections = [
   { id: 'start', title: 'Start', minutes: '5 min', icon: BookIcon },
   { id: 'pola', title: 'Pola figur', minutes: '15 min', icon: GridIcon },
-  { id: 'ulamki', title: 'Ułamki dziesiętne', minutes: '15 min', icon: MeasureIcon },
+  { id: 'ulamki', title: 'Ułamki', minutes: '15 min', icon: MeasureIcon },
   { id: 'siatki', title: 'Siatki i bryły', minutes: '10 min', icon: CubeIcon },
   { id: 'kalendarz', title: 'Kalendarz', minutes: '10 min', icon: CalendarIcon },
   { id: 'powtorka', title: 'Podsumowanie', minutes: '5 min', icon: StarIcon }
@@ -27,9 +27,9 @@ const lessonTips = {
     'Trójkąt to połowa prostokąta z taką samą podstawą i wysokością.'
   ],
   ulamki: [
-    'Przecinek oddziela całość od kawałka całości.',
-    '0,5 to połowa, 0,25 to ćwierć, 0,75 to trzy ćwiartki.',
-    'Warto zawsze pytać: mówimy o metrach, gramach, stopniach czy minutach?'
+    'Licznik mówi, ile części bierzemy, a mianownik — na ile części dzielimy całość.',
+    'Gdy mianowniki są różne, najpierw szukamy wspólnego mianownika.',
+    '0,5 to połowa, więc ułamki zwykłe i dziesiętne mówią o tej samej części całości.'
   ],
   siatki: [
     'Siatka to bryła rozłożona na płasko.',
@@ -60,9 +60,9 @@ const roadmap = [
     text: 'Liczenie kratek, wzory i proste przykłady z kwadratem, prostokątem i trójkątem.'
   },
   {
-    title: 'Ułamki dziesiętne',
+    title: 'Ułamki',
     time: '15 min',
-    text: 'Miary, masa, czas i temperatura pokazane na prostych wizualizacjach.'
+    text: 'Ułamki zwykłe i dziesiętne: porównywanie, skracanie, różne mianowniki oraz przykłady z życia.'
   },
   {
     title: 'Siatki i sześcian',
@@ -172,6 +172,46 @@ const fixedQuizzes = {
       correct: '2 godziny 30 minut',
       hint: '0,5 godziny to 30 minut.',
       explanation: '2,5 godziny to 2 godziny i jeszcze 30 minut.'
+    },
+    {
+      id: 'frac-1',
+      question: 'Który ułamek jest równy 1/2?',
+      options: ['2/4', '2/3', '3/5'],
+      correct: '2/4',
+      hint: 'Rozszerzamy ułamek, mnożąc licznik i mianownik przez tę samą liczbę.',
+      explanation: '1/2 = 2/4, bo licznik i mianownik pomnożyliśmy przez 2.'
+    },
+    {
+      id: 'frac-2',
+      question: 'Wstaw dobry znak: 3/8 ? 5/8',
+      options: ['<', '>', '='],
+      correct: '<',
+      hint: 'Mianownik jest taki sam, więc porównujemy liczniki.',
+      explanation: '3/8 jest mniejsze niż 5/8, bo 3 części to mniej niż 5 części z tej samej całości.'
+    },
+    {
+      id: 'frac-3',
+      question: 'Ile to jest 1/2 + 1/4?',
+      options: ['2/6', '3/4', '2/4'],
+      correct: '3/4',
+      hint: 'Najpierw sprowadź do wspólnego mianownika 4.',
+      explanation: '1/2 = 2/4, więc 2/4 + 1/4 = 3/4.'
+    },
+    {
+      id: 'frac-4',
+      question: 'Ile to jest 5/6 - 1/3?',
+      options: ['4/3', '1/2', '2/3'],
+      correct: '1/2',
+      hint: '1/3 zamień na szóstki.',
+      explanation: '1/3 = 2/6, więc 5/6 - 2/6 = 3/6 = 1/2.'
+    },
+    {
+      id: 'frac-5',
+      question: 'Skróć ułamek 6/8.',
+      options: ['3/4', '4/6', '2/8'],
+      correct: '3/4',
+      hint: 'Podziel licznik i mianownik przez tę samą liczbę.',
+      explanation: '6 i 8 dzielą się przez 2, więc 6/8 = 3/4.'
     }
   ],
   siatki: [
@@ -467,7 +507,7 @@ function App() {
           <span className="eyebrow">Interaktywne materiały na 60 minut</span>
           <h1>Matematyka bez stresu</h1>
           <p>
-            Pola figur, ułamki dziesiętne, siatki brył i kalendarz — z prostymi
+            Pola figur, ułamki zwykłe i dziesiętne, siatki brył i kalendarz — z prostymi
             wizualizacjami, generatorem ćwiczeń i natychmiastowym wyjaśnieniem.
           </p>
 
@@ -720,7 +760,7 @@ function AreaSection({ answers, onAnswer, onPracticeResult, onNext }) {
 
       <div className="cta-row">
         <button type="button" className="primary-button" onClick={onNext}>
-          Dalej: ułamki dziesiętne
+          Dalej: ułamki
         </button>
       </div>
     </SectionCard>
@@ -730,10 +770,12 @@ function AreaSection({ answers, onAnswer, onPracticeResult, onNext }) {
 function DecimalsSection({ answers, onAnswer, onPracticeResult, onNext }) {
   return (
     <SectionCard
-      title="Ułamki dziesiętne w życiu"
-      subtitle="Ten sam zapis działa w metrach, kilogramach, czasie i temperaturze."
+      title="Ułamki zwykłe i dziesiętne"
+      subtitle="Tu ćwiczymy podstawy: porównywanie, skracanie, dodawanie i odejmowanie oraz zamianę na zapis dziesiętny."
     >
       <FractionBridgeVisual />
+      <FractionBasicsGrid />
+      <FractionOperationsLab />
       <ConversionLab />
       <TemperatureLab />
 
@@ -748,8 +790,13 @@ function DecimalsSection({ answers, onAnswer, onPracticeResult, onNext }) {
         ))}
       </div>
 
+      <GeneratedFractionChoicePractice
+        topicKey="ulamki"
+        onPracticeResult={onPracticeResult}
+      />
+
       <GeneratedNumericPractice
-        title="Generator ćwiczeń: ułamki dziesiętne"
+        title="Generator ćwiczeń: ułamki dziesiętne w życiu"
         description="Losuj zadania z metrów, gramów i czasu. Przy błędzie dostajesz krótkie wyjaśnienie."
         buildTask={createDecimalGeneratorTask}
         topicKey="ulamki"
@@ -982,6 +1029,92 @@ function FractionBridgeVisual() {
   )
 }
 
+function FractionBasicsGrid() {
+  const basics = [
+    {
+      title: 'Rozszerzanie ułamków',
+      example: '1/2 = 2/4 = 3/6',
+      text: 'Mnożymy licznik i mianownik przez tę samą liczbę. Wartość ułamka się nie zmienia.'
+    },
+    {
+      title: 'Skracanie ułamków',
+      example: '6/8 = 3/4',
+      text: 'Dzielimy licznik i mianownik przez tę samą liczbę. Dzięki temu zapis jest prostszy.'
+    },
+    {
+      title: 'Porównywanie',
+      example: '3/8 < 5/8',
+      text: 'Gdy mianownik jest taki sam, większy licznik oznacza większy ułamek.'
+    },
+    {
+      title: 'Różne mianowniki',
+      example: '1/2 + 1/3 = 3/6 + 2/6 = 5/6',
+      text: 'Najpierw szukamy wspólnego mianownika, a dopiero potem dodajemy lub odejmujemy.'
+    }
+  ]
+
+  return (
+    <div className="visual-grid fraction-basics-grid">
+      {basics.map((item) => (
+        <article key={item.title} className="info-card">
+          <h3>{item.title}</h3>
+          <div className="formula-chip">{item.example}</div>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+function FractionOperationsLab() {
+  const examples = [
+    {
+      title: 'Dodawanie przy różnych mianownikach',
+      prompt: '1/2 + 1/3',
+      common: '3/6 + 2/6',
+      answer: '5/6',
+      steps: [
+        'Szukamy wspólnego mianownika. Dla 2 i 3 pasuje 6.',
+        'Zmieniamy 1/2 na 3/6 i 1/3 na 2/6.',
+        'Dodajemy liczniki: 3 + 2 = 5, więc wynik to 5/6.'
+      ]
+    },
+    {
+      title: 'Odejmowanie przy różnych mianownikach',
+      prompt: '5/6 - 1/3',
+      common: '5/6 - 2/6',
+      answer: '3/6 = 1/2',
+      steps: [
+        'Zostawiamy 5/6, a 1/3 zamieniamy na 2/6.',
+        'Odejmujemy tylko liczniki: 5 - 2 = 3.',
+        'Dostajemy 3/6, a po skróceniu 1/2.'
+      ]
+    }
+  ]
+
+  return (
+    <div className="two-column">
+      {examples.map((example) => (
+        <article key={example.title} className="info-card info-card--accent">
+          <h3>{example.title}</h3>
+          <div className="equation-line">
+            <span>{example.prompt}</span>
+            <strong>→</strong>
+            <span>{example.common}</span>
+            <strong>→</strong>
+            <span>{example.answer}</span>
+          </div>
+          <ol className="steps-list">
+            {example.steps.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 function NetsSection({ answers, onAnswer, onPracticeResult, onNext }) {
   return (
     <SectionCard
@@ -1081,7 +1214,7 @@ function RecapSection({ fixedCorrectCount, fixedTotal, totalAttempts, totalCorre
           <h3>Najważniejsze 4 rzeczy</h3>
           <ul className="plain-list">
             <li>Pole to ilość miejsca zajmowanego przez figurę.</li>
-            <li>Ułamki dziesiętne opisują części całości i pojawiają się w codziennych sytuacjach.</li>
+            <li>Ułamki można porównywać, skracać i sprowadzać do wspólnego mianownika.</li>
             <li>Siatka to bryła rozłożona na płasko.</li>
             <li>Po 7 dniach wracamy do tego samego dnia tygodnia.</li>
           </ul>
@@ -1280,6 +1413,112 @@ function GeneratedNumericPractice({ title, description, buildTask, topicKey, onP
           </ol>
         ) : null}
       </div>
+    </article>
+  )
+}
+
+function GeneratedFractionChoicePractice({ topicKey, onPracticeResult }) {
+  const [difficulty, setDifficulty] = useState('easy')
+  const [task, setTask] = useState(() => createFractionChoiceTask('easy'))
+  const [selected, setSelected] = useState(null)
+  const [lastSubmissionKey, setLastSubmissionKey] = useState('')
+
+  const regenerate = (nextDifficulty = difficulty) => {
+    setTask(createFractionChoiceTask(nextDifficulty))
+    setSelected(null)
+    setLastSubmissionKey('')
+  }
+
+  const handleDifficulty = (nextDifficulty) => {
+    setDifficulty(nextDifficulty)
+    regenerate(nextDifficulty)
+  }
+
+  const handleSelect = (option) => {
+    setSelected(option)
+
+    const submissionKey = `${task.id}:${option}`
+    if (submissionKey !== lastSubmissionKey) {
+      onPracticeResult(topicKey, option === task.correct)
+      setLastSubmissionKey(submissionKey)
+    }
+  }
+
+  const hasAnswer = Boolean(selected)
+  const isCorrect = selected === task.correct
+
+  return (
+    <article className="generator-card clay-card">
+      <div className="generator-card__header">
+        <div>
+          <h3>Generator ćwiczeń: ułamki zwykłe</h3>
+          <p>Ćwicz skracanie, porównywanie oraz działania z różnymi mianownikami.</p>
+        </div>
+
+        <div className="difficulty-switch" role="group" aria-label="Wybór poziomu trudności generatora ułamków">
+          <button
+            type="button"
+            className={`difficulty-button ${difficulty === 'easy' ? 'difficulty-button--active' : ''}`}
+            onClick={() => handleDifficulty('easy')}
+          >
+            Łatwe
+          </button>
+          <button
+            type="button"
+            className={`difficulty-button ${difficulty === 'medium' ? 'difficulty-button--active' : ''}`}
+            onClick={() => handleDifficulty('medium')}
+          >
+            Trochę trudniejsze
+          </button>
+        </div>
+      </div>
+
+      <p className="generator-prompt">{task.prompt}</p>
+
+      <div className="quiz-options">
+        {task.options.map((option) => {
+          const isSelected = selected === option
+          const isWrongSelected = isSelected && !isCorrect
+          const shouldGlowCorrect = hasAnswer && option === task.correct
+
+          return (
+            <button
+              key={option}
+              type="button"
+              className={`option-button ${isSelected ? 'option-button--selected' : ''} ${
+                isWrongSelected ? 'option-button--wrong' : ''
+              } ${shouldGlowCorrect ? 'option-button--correct' : ''}`}
+              onClick={() => handleSelect(option)}
+            >
+              {option}
+            </button>
+          )
+        })}
+      </div>
+
+      <div className="generator-actions generator-actions--inline">
+        <button type="button" className="ghost-button" onClick={() => regenerate()}>
+          Wylosuj nowe
+        </button>
+      </div>
+
+      <div className={`feedback ${isCorrect ? 'feedback--success' : hasAnswer ? 'feedback--warning' : ''}`} aria-live="polite">
+        {!hasAnswer && <span>Wybierz odpowiedź. Strona od razu pokaże wyjaśnienie.</span>}
+        {hasAnswer && !isCorrect && (
+          <span>
+            Jeszcze nie. Dobra odpowiedź to <strong>{task.correct}</strong>. {task.explanation}
+          </span>
+        )}
+        {isCorrect && <span>Super. {task.explanation}</span>}
+      </div>
+
+      {hasAnswer ? (
+        <ol className="steps-list">
+          {task.steps.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      ) : null}
     </article>
   )
 }
@@ -2066,8 +2305,16 @@ function PrintPack() {
       </div>
 
       <div className="print-pack__section">
-        <h2>Ułamki dziesiętne</h2>
+        <h2>Ułamki zwykłe i dziesiętne</h2>
+        <ul>
+          <li>Gdy mianowniki są różne, sprowadź ułamki do wspólnego mianownika.</li>
+          <li>Rozszerzanie: mnożymy licznik i mianownik przez tę samą liczbę.</li>
+          <li>Skracanie: dzielimy licznik i mianownik przez tę samą liczbę.</li>
+        </ul>
         <ol>
+          <li>Oblicz: 1/2 + 1/4.</li>
+          <li>Oblicz: 5/6 - 1/3.</li>
+          <li>Skróć ułamek 6/8.</li>
           <li>2,5 m zamień na centymetry.</li>
           <li>1,75 kg zamień na gramy.</li>
           <li>1,5 godziny zamień na minuty.</li>
@@ -2183,6 +2430,190 @@ function createAreaGeneratorTask(difficulty) {
     unit: 'cm²',
     placeholder: 'np. 16'
   }
+}
+
+function createFractionChoiceTask(difficulty) {
+  const easyTasks = [
+    () => {
+      const task = randomFrom([
+        { baseTop: 1, baseBottom: 2, factor: 2, wrongA: '2/3', wrongB: '3/5' },
+        { baseTop: 1, baseBottom: 3, factor: 2, wrongA: '2/5', wrongB: '3/4' },
+        { baseTop: 2, baseBottom: 3, factor: 2, wrongA: '3/5', wrongB: '4/5' },
+        { baseTop: 3, baseBottom: 4, factor: 2, wrongA: '4/6', wrongB: '5/8' }
+      ])
+      const correct = formatFraction(task.baseTop * task.factor, task.baseBottom * task.factor)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Który ułamek jest równy ${formatFraction(task.baseTop, task.baseBottom)}?`,
+        correct,
+        options: buildFractionOptions(correct, [task.wrongA, task.wrongB]),
+        explanation: 'Rozszerzamy ułamek, mnożąc licznik i mianownik przez tę samą liczbę.',
+        steps: [
+          `Startujemy od ${formatFraction(task.baseTop, task.baseBottom)}.`,
+          `Mnożymy licznik i mianownik przez ${task.factor}.`,
+          `Dostajemy ${correct}.`
+        ]
+      }
+    },
+    () => {
+      const task = randomFrom([
+        { left: 3, right: 5, bottom: 8, correct: '<' },
+        { left: 4, right: 1, bottom: 7, correct: '>' },
+        { left: 5, right: 5, bottom: 9, correct: '=' }
+      ])
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Wstaw dobry znak: ${formatFraction(task.left, task.bottom)} ? ${formatFraction(task.right, task.bottom)}`,
+        correct: task.correct,
+        options: ['<', '>', '='],
+        explanation: 'Przy tym samym mianowniku porównujemy liczniki.',
+        steps: [
+          `Oba ułamki mają mianownik ${task.bottom}.`,
+          `Porównujemy tylko liczniki: ${task.left} i ${task.right}.`,
+          `Pasujący znak to ${task.correct}.`
+        ]
+      }
+    },
+    () => {
+      const task = randomFrom([
+        { left: 1, right: 2, bottom: 5 },
+        { left: 2, right: 1, bottom: 6 },
+        { left: 3, right: 2, bottom: 8 }
+      ])
+      const correct = formatFraction(task.left + task.right, task.bottom)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Ile to jest ${formatFraction(task.left, task.bottom)} + ${formatFraction(task.right, task.bottom)}?`,
+        correct,
+        options: buildFractionOptions(correct, [
+          correct,
+          formatFraction(task.left + task.right + 1, task.bottom),
+          formatFraction(Math.max(1, task.left + task.right - 1), task.bottom)
+        ]),
+        explanation: 'Gdy mianowniki są takie same, dodajemy tylko liczniki.',
+        steps: [
+          `Mianownik zostaje ${task.bottom}.`,
+          `Dodajemy liczniki: ${task.left} + ${task.right} = ${task.left + task.right}.`,
+          `Wynik to ${correct}.`
+        ]
+      }
+    },
+    () => {
+      const task = randomFrom([
+        { top: 6, bottom: 8, divisor: 2 },
+        { top: 4, bottom: 10, divisor: 2 },
+        { top: 9, bottom: 12, divisor: 3 }
+      ])
+      const correct = formatFraction(task.top / task.divisor, task.bottom / task.divisor)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Skróć ułamek ${formatFraction(task.top, task.bottom)}.`,
+        correct,
+        options: buildFractionOptions(correct, [
+          correct,
+          formatFraction(task.top - task.divisor, task.bottom - task.divisor),
+          formatFraction(task.divisor, task.bottom / task.divisor)
+        ]),
+        explanation: 'Skracamy, dzieląc licznik i mianownik przez tę samą liczbę.',
+        steps: [
+          `Sprawdź, przez jaką liczbę dzielą się ${task.top} i ${task.bottom}.`,
+          `Tu dzielimy obie liczby przez ${task.divisor}.`,
+          `Wynik po skróceniu to ${correct}.`
+        ]
+      }
+    }
+  ]
+
+  const mediumTasks = [
+    () => {
+      const task = randomFrom([
+        { leftTop: 1, leftBottom: 2, rightTop: 1, rightBottom: 3 },
+        { leftTop: 1, leftBottom: 4, rightTop: 1, rightBottom: 2 },
+        { leftTop: 2, leftBottom: 3, rightTop: 1, rightBottom: 6 }
+      ])
+      const commonBottom = leastCommonMultiple(task.leftBottom, task.rightBottom)
+      const leftExpanded = task.leftTop * (commonBottom / task.leftBottom)
+      const rightExpanded = task.rightTop * (commonBottom / task.rightBottom)
+      const simplified = simplifyFraction(leftExpanded + rightExpanded, commonBottom)
+      const correct = formatFraction(simplified.top, simplified.bottom)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Ile to jest ${formatFraction(task.leftTop, task.leftBottom)} + ${formatFraction(task.rightTop, task.rightBottom)}?`,
+        correct,
+        options: buildFractionOptions(correct, [
+          correct,
+          formatFraction(Math.max(1, simplified.top - 1), simplified.bottom),
+          formatFraction(Math.min(simplified.bottom, simplified.top + 1), simplified.bottom)
+        ]),
+        explanation: `Najpierw sprowadzamy oba ułamki do mianownika ${commonBottom}, a potem dodajemy liczniki.`,
+        steps: [
+          `Wspólny mianownik dla ${task.leftBottom} i ${task.rightBottom} to ${commonBottom}.`,
+          `${formatFraction(task.leftTop, task.leftBottom)} = ${formatFraction(leftExpanded, commonBottom)}, a ${formatFraction(task.rightTop, task.rightBottom)} = ${formatFraction(rightExpanded, commonBottom)}.`,
+          `Dodajemy: ${leftExpanded}/${commonBottom} + ${rightExpanded}/${commonBottom} = ${formatFraction(leftExpanded + rightExpanded, commonBottom)} = ${correct}.`
+        ]
+      }
+    },
+    () => {
+      const task = randomFrom([
+        { leftTop: 5, leftBottom: 6, rightTop: 1, rightBottom: 3 },
+        { leftTop: 3, leftBottom: 4, rightTop: 1, rightBottom: 6 },
+        { leftTop: 7, leftBottom: 10, rightTop: 1, rightBottom: 5 }
+      ])
+      const commonBottom = leastCommonMultiple(task.leftBottom, task.rightBottom)
+      const leftExpanded = task.leftTop * (commonBottom / task.leftBottom)
+      const rightExpanded = task.rightTop * (commonBottom / task.rightBottom)
+      const simplified = simplifyFraction(leftExpanded - rightExpanded, commonBottom)
+      const correct = formatFraction(simplified.top, simplified.bottom)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Ile to jest ${formatFraction(task.leftTop, task.leftBottom)} - ${formatFraction(task.rightTop, task.rightBottom)}?`,
+        correct,
+        options: buildFractionOptions(correct, [
+          correct,
+          formatFraction(Math.max(1, simplified.top + 1), simplified.bottom),
+          formatFraction(Math.max(1, leftExpanded - rightExpanded), commonBottom)
+        ]),
+        explanation: `Najpierw sprowadzamy oba ułamki do mianownika ${commonBottom}, a potem odejmujemy liczniki.`,
+        steps: [
+          `Wspólny mianownik dla ${task.leftBottom} i ${task.rightBottom} to ${commonBottom}.`,
+          `${formatFraction(task.leftTop, task.leftBottom)} = ${formatFraction(leftExpanded, commonBottom)}, a ${formatFraction(task.rightTop, task.rightBottom)} = ${formatFraction(rightExpanded, commonBottom)}.`,
+          `Odejmujemy: ${leftExpanded}/${commonBottom} - ${rightExpanded}/${commonBottom} = ${formatFraction(leftExpanded - rightExpanded, commonBottom)} = ${correct}.`
+        ]
+      }
+    },
+    () => {
+      const task = randomFrom([
+        { leftTop: 2, leftBottom: 3, rightTop: 3, rightBottom: 5, correct: '>' },
+        { leftTop: 3, leftBottom: 4, rightTop: 5, rightBottom: 6, correct: '<' },
+        { leftTop: 1, leftBottom: 2, rightTop: 4, rightBottom: 8, correct: '=' }
+      ])
+      const commonBottom = leastCommonMultiple(task.leftBottom, task.rightBottom)
+      const leftExpanded = task.leftTop * (commonBottom / task.leftBottom)
+      const rightExpanded = task.rightTop * (commonBottom / task.rightBottom)
+
+      return {
+        id: createTaskId('fraction'),
+        prompt: `Wstaw dobry znak: ${formatFraction(task.leftTop, task.leftBottom)} ? ${formatFraction(task.rightTop, task.rightBottom)}`,
+        correct: task.correct,
+        options: ['<', '>', '='],
+        explanation: `Porównujemy ułamki po sprowadzeniu do wspólnego mianownika ${commonBottom}.`,
+        steps: [
+          `${formatFraction(task.leftTop, task.leftBottom)} = ${formatFraction(leftExpanded, commonBottom)}.`,
+          `${formatFraction(task.rightTop, task.rightBottom)} = ${formatFraction(rightExpanded, commonBottom)}.`,
+          `Porównujemy ${leftExpanded}/${commonBottom} i ${rightExpanded}/${commonBottom}, więc pasuje znak ${task.correct}.`
+        ]
+      }
+    }
+  ]
+
+  const taskFactory = randomFrom(difficulty === 'easy' ? easyTasks : mediumTasks)
+  return taskFactory()
 }
 
 function createDecimalGeneratorTask(difficulty) {
@@ -2375,6 +2806,31 @@ function formatDecimal(value) {
   return String(value).replace('.', ',')
 }
 
+function formatFraction(top, bottom) {
+  return `${top}/${bottom}`
+}
+
+function buildFractionOptions(correct, candidates) {
+  const fallbackOptions = ['1/2', '2/3', '3/4', '4/5', '5/6', '2/5', '3/8']
+  const unique = []
+
+  for (const option of [correct, ...candidates, ...fallbackOptions]) {
+    if (!unique.includes(option)) {
+      unique.push(option)
+    }
+  }
+
+  return shuffleArray(unique.slice(0, 3))
+}
+
+function simplifyFraction(top, bottom) {
+  const divisor = greatestCommonDivisor(Math.abs(top), Math.abs(bottom))
+  return {
+    top: top / divisor,
+    bottom: bottom / divisor
+  }
+}
+
 function formatPolishDecimal(value) {
   return new Intl.NumberFormat('pl-PL', {
     minimumFractionDigits: 0,
@@ -2398,6 +2854,23 @@ function randomEvenInt(min, max) {
     }
   }
   return randomFrom(numbers)
+}
+
+function greatestCommonDivisor(a, b) {
+  let left = Math.abs(a)
+  let right = Math.abs(b)
+
+  while (right !== 0) {
+    const rest = left % right
+    left = right
+    right = rest
+  }
+
+  return left || 1
+}
+
+function leastCommonMultiple(a, b) {
+  return Math.abs(a * b) / greatestCommonDivisor(a, b)
 }
 
 function randomFrom(list) {
