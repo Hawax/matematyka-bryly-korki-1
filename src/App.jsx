@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
+const PI_APPROX = 3.14
+
 const STORAGE_KEYS = {
   section: 'math-screen-section',
   answers: 'math-screen-answers',
@@ -23,8 +25,8 @@ const lessonTips = {
   ],
   pola: [
     'Pole to liczba małych kawałków, które mieszczą się w figurze.',
-    'Kwadrat i prostokąt liczymy przez mnożenie boków.',
-    'Trójkąt to połowa prostokąta z taką samą podstawą i wysokością.'
+    'Obwód to suma długości wszystkich boków, a w kole — długość okręgu.',
+    'W szkolnych figurach płaskich ważne są też: koło, romb, równoległobok i trapez.'
   ],
   ulamki: [
     'Licznik mówi, ile części bierzemy, a mianownik — na ile części dzielimy całość.',
@@ -57,7 +59,7 @@ const roadmap = [
   {
     title: 'Pola figur',
     time: '15 min',
-    text: 'Liczenie kratek, wzory i proste przykłady z kwadratem, prostokątem i trójkątem.'
+    text: 'Kwadrat, prostokąt, trójkąt, koło, romb, równoległobok i trapez — z polami, obwodami i prostymi przykładami.'
   },
   {
     title: 'Ułamki',
@@ -65,9 +67,9 @@ const roadmap = [
     text: 'Ułamki zwykłe i dziesiętne: porównywanie, skracanie, różne mianowniki oraz przykłady z życia.'
   },
   {
-    title: 'Siatki i sześcian',
+    title: 'Siatki i bryły',
     time: '10 min',
-    text: 'Zobaczenie bryły, jej siatki i liczenia pola całkowitego.'
+    text: 'Sześcian, prostopadłościan, siatki oraz liczenie pola całkowitego.'
   },
   {
     title: 'Kalendarz',
@@ -122,6 +124,50 @@ const fixedQuizzes = {
       correct: '30 cm²',
       hint: 'Prostokąt liczymy: a × b.',
       explanation: '5 × 6 = 30, więc pole prostokąta to 30 cm².'
+    },
+    {
+      id: 'pole-6',
+      question: 'Koło ma promień 3 cm. Ile wynosi średnica?',
+      options: ['3 cm', '6 cm', '9 cm'],
+      correct: '6 cm',
+      hint: 'Średnica to dwa promienie.',
+      explanation: 'Średnica jest 2 razy większa od promienia, więc 2 × 3 = 6 cm.'
+    },
+    {
+      id: 'pole-7',
+      question: 'Równoległobok ma podstawę 7 cm i wysokość 4 cm. Jakie ma pole?',
+      options: ['11 cm²', '28 cm²', '22 cm²'],
+      correct: '28 cm²',
+      hint: 'Pole równoległoboku to podstawa × wysokość.',
+      explanation: '7 × 4 = 28, więc pole równoległoboku to 28 cm².'
+    },
+    {
+      id: 'pole-8',
+      question: 'Romb ma bok 5 cm. Jaki ma obwód?',
+      options: ['10 cm', '20 cm', '25 cm'],
+      correct: '20 cm',
+      hint: 'Romb ma 4 równe boki.',
+      explanation: 'Obwód rombu to 4 × bok, więc 4 × 5 = 20 cm.'
+    },
+    {
+      id: 'pole-9',
+      question: 'Trapez ma podstawy 8 cm i 4 cm oraz wysokość 3 cm. Jakie ma pole?',
+      options: ['12 cm²', '18 cm²', '24 cm²'],
+      correct: '18 cm²',
+      hint: 'Dodaj podstawy, podziel przez 2, a potem pomnóż przez wysokość.',
+      explanation: '(8 + 4) : 2 = 6, a 6 × 3 = 18 cm².'
+    },
+    {
+      id: 'pole-10',
+      question: 'Który zestaw figur należy do podstawowych figur płaskich w tym materiale?',
+      options: [
+        'Kwadrat, prostokąt, trójkąt, koło, romb, równoległobok, trapez',
+        'Sześcian, walec, stożek, kula',
+        'Tylko kwadrat i prostokąt'
+      ],
+      correct: 'Kwadrat, prostokąt, trójkąt, koło, romb, równoległobok, trapez',
+      hint: 'Pomyśl, które figury leżą na płaszczyźnie, a nie są bryłami.',
+      explanation: 'To są najważniejsze szkolne figury płaskie omawiane w tej części.'
     }
   ],
   ulamki: [
@@ -254,6 +300,22 @@ const fixedQuizzes = {
       correct: '96 cm²',
       hint: 'Sześcian ma 6 ścian.',
       explanation: '6 × 16 = 96, więc pole całkowite to 96 cm².'
+    },
+    {
+      id: 'net-6',
+      question: 'Prostopadłościan ma:',
+      options: ['6 ścian, 8 wierzchołków i 12 krawędzi', '4 ściany, 4 wierzchołki i 8 krawędzi', '6 ścian, 6 wierzchołków i 6 krawędzi'],
+      correct: '6 ścian, 8 wierzchołków i 12 krawędzi',
+      hint: 'Ma tyle samo ścian co sześcian, ale nie wszystkie muszą być kwadratami.',
+      explanation: 'Prostopadłościan ma 6 ścian, 8 wierzchołków i 12 krawędzi.'
+    },
+    {
+      id: 'net-7',
+      question: 'Sześcian jest szczególnym przypadkiem:',
+      options: ['kuli', 'prostopadłościanu', 'stożka'],
+      correct: 'prostopadłościanu',
+      hint: 'W sześcianie wszystkie ściany są kwadratami.',
+      explanation: 'Sześcian to prostopadłościan, którego wszystkie krawędzie mają tę samą długość.'
     }
   ],
   kalendarz: [
@@ -732,12 +794,15 @@ function StartSection({ onStart, onPrint }) {
 function AreaSection({ answers, onAnswer, onPracticeResult, onNext }) {
   return (
     <SectionCard
-      title="Pola figur płaskich"
-      subtitle="Pole pokazuje, ile miejsca zajmuje figura. Najłatwiej zobaczyć to na kratkach."
+      title="Figury płaskie: pola, obwody i własności"
+      subtitle="Uzupełniliśmy najważniejsze szkolne figury płaskie: kwadrat, prostokąt, trójkąt, koło, romb, równoległobok i trapez."
     >
       <AreaVisualShowcase />
+      <PlaneFiguresGallery />
+      <QuadrilateralFamilyCard />
       <AreaPlayground />
       <TrianglePlayground />
+      <CircleLab />
 
       <div className="quiz-stack">
         {fixedQuizzes.pola.map((quiz) => (
@@ -751,8 +816,8 @@ function AreaSection({ answers, onAnswer, onPracticeResult, onNext }) {
       </div>
 
       <GeneratedNumericPractice
-        title="Generator ćwiczeń: pola figur"
-        description="Losuj kolejne przykłady i sprawdzaj wynik krok po kroku."
+        title="Generator ćwiczeń: figury płaskie"
+        description="Losuj zadania z pól i obwodów różnych figur płaskich i sprawdzaj wynik krok po kroku."
         buildTask={createAreaGeneratorTask}
         topicKey="pola"
         onPracticeResult={onPracticeResult}
@@ -1118,13 +1183,16 @@ function FractionOperationsLab() {
 function NetsSection({ answers, onAnswer, onPracticeResult, onNext }) {
   return (
     <SectionCard
-      title="Siatki figur geometrycznych"
-      subtitle="Sześcian można zobaczyć jako bryłę, a potem rozłożyć na siatkę z 6 kwadratów."
+      title="Siatki i bryły"
+      subtitle="Dodaliśmy podstawy brył: sześcian, prostopadłościan oraz najważniejsze pojęcia: ściana, krawędź, wierzchołek i pole powierzchni."
     >
       <div className="two-column">
         <CubeFoldShowcase />
         <CubePlayground />
       </div>
+
+      <SolidBasicsGrid />
+      <CuboidPlayground />
 
       <NetQuiz selected={answers['net-1']} onAnswer={(value) => onAnswer('net-1', value)} />
 
@@ -1142,8 +1210,8 @@ function NetsSection({ answers, onAnswer, onPracticeResult, onNext }) {
       </div>
 
       <GeneratedNumericPractice
-        title="Generator ćwiczeń: sześcian"
-        description="Losuj nowe sześciany i ćwicz liczenie pola całkowitego tyle razy, ile chcesz."
+        title="Generator ćwiczeń: bryły"
+        description="Losuj zadania o sześcianie i prostopadłościanie i ćwicz pole powierzchni krok po kroku."
         buildTask={createCubeGeneratorTask}
         topicKey="siatki"
         onPracticeResult={onPracticeResult}
@@ -1670,6 +1738,100 @@ function AreaVisualShowcase() {
   )
 }
 
+function PlaneFiguresGallery() {
+  const figures = [
+    {
+      title: 'Kwadrat',
+      note: '4 równe boki i 4 kąty proste',
+      area: 'P = a × a',
+      perimeter: 'O = 4a'
+    },
+    {
+      title: 'Prostokąt',
+      note: 'Przeciwległe boki są równe',
+      area: 'P = a × b',
+      perimeter: 'O = 2a + 2b'
+    },
+    {
+      title: 'Trójkąt',
+      note: 'Pole liczymy z podstawy i wysokości',
+      area: 'P = (a × h) / 2',
+      perimeter: 'O = a + b + c'
+    },
+    {
+      title: 'Koło',
+      note: 'Promień r, średnica d = 2r',
+      area: 'P ≈ πr²',
+      perimeter: 'Obwód ≈ 2πr'
+    },
+    {
+      title: 'Równoległobok',
+      note: 'Ma 2 pary boków równoległych',
+      area: 'P = a × h',
+      perimeter: 'O = 2a + 2b'
+    },
+    {
+      title: 'Romb',
+      note: 'Ma 4 równe boki',
+      area: 'P = a × h lub (e × f) / 2',
+      perimeter: 'O = 4a'
+    },
+    {
+      title: 'Trapez',
+      note: 'Ma jedną parę boków równoległych',
+      area: 'P = ((a + b) × h) / 2',
+      perimeter: 'O = suma wszystkich boków'
+    },
+    {
+      title: 'Wielokąty',
+      note: 'Pięciokąt, sześciokąt i dalej',
+      area: 'Dzielimy figurę na mniejsze części',
+      perimeter: 'Dodajemy wszystkie boki'
+    }
+  ]
+
+  return (
+    <div className="visual-grid figure-gallery">
+      {figures.map((figure) => (
+        <article key={figure.title} className="visual-card">
+          <h3>{figure.title}</h3>
+          <p>{figure.note}</p>
+          <div className="formula-chip">{figure.area}</div>
+          <div className="formula-chip formula-chip--soft">{figure.perimeter}</div>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+function QuadrilateralFamilyCard() {
+  return (
+    <div className="two-column">
+      <article className="info-card info-card--accent">
+        <h3>Rodzina czworokątów</h3>
+        <ul className="plain-list">
+          <li>Trapez ma przynajmniej jedną parę boków równoległych.</li>
+          <li>Równoległobok ma dwie pary boków równoległych.</li>
+          <li>Prostokąt to równoległobok z 4 kątami prostymi.</li>
+          <li>Romb to równoległobok z 4 równymi bokami.</li>
+          <li>Kwadrat jest jednocześnie prostokątem i rombem.</li>
+        </ul>
+      </article>
+
+      <article className="info-card">
+        <h3>Koło czy okrąg?</h3>
+        <ul className="plain-list">
+          <li><strong>Okrąg</strong> to sam brzeg figury.</li>
+          <li><strong>Koło</strong> to brzeg i środek „w środku”.</li>
+          <li><strong>Promień</strong> łączy środek z brzegiem.</li>
+          <li><strong>Średnica</strong> ma długość dwóch promieni.</li>
+          <li><strong>Cięciwa</strong> łączy dwa punkty na okręgu.</li>
+        </ul>
+      </article>
+    </div>
+  )
+}
+
 function AreaPlayground() {
   const [width, setWidth] = useState(4)
   const [height, setHeight] = useState(3)
@@ -1807,6 +1969,54 @@ function TrianglePlayground() {
         <div className="triangle-note">
           <div className="triangle-note__swatch triangle-note__swatch--rect" />
           <span>to cały prostokąt o bokach a i h</span>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CircleLab() {
+  const [radius, setRadius] = useState(3)
+  const diameter = radius * 2
+  const circumference = 2 * PI_APPROX * radius
+  const area = PI_APPROX * radius * radius
+
+  return (
+    <section className="playground-card playground-card--circle">
+      <div className="playground-card__copy">
+        <h3>Koło w praktyce</h3>
+        <p>
+          Zmieniaj promień i zobacz, jak rosną średnica, obwód i pole koła.
+          Do obliczeń szkolnych zwykle używamy liczby π ≈ 3,14.
+        </p>
+
+        <label className="range-control" htmlFor="circle-radius-range">
+          <span>Promień r: <strong>{radius} cm</strong></span>
+          <input
+            id="circle-radius-range"
+            type="range"
+            min="1"
+            max="8"
+            value={radius}
+            onChange={(event) => setRadius(Number(event.target.value))}
+          />
+        </label>
+
+        <div className="mini-math" aria-live="polite">
+          <p>Średnica: d = 2r = <strong>{diameter} cm</strong></p>
+          <p>Obwód: 2 × 3,14 × {radius} = <strong>{formatPolishDecimal(circumference)} cm</strong></p>
+          <p>Pole: 3,14 × {radius} × {radius} = <strong>{formatPolishDecimal(area)} cm²</strong></p>
+        </div>
+      </div>
+
+      <div className="circle-stage">
+        <div className="circle-shape" style={{ '--circle-size': `${90 + radius * 18}px` }}>
+          <span className="circle-shape__radius" />
+          <span className="circle-shape__center" />
+        </div>
+        <div className="triangle-note">
+          <div className="triangle-note__swatch triangle-note__swatch--circle" />
+          <span>promień idzie od środka do brzegu</span>
         </div>
       </div>
     </section>
@@ -2104,6 +2314,79 @@ function CubePlayground() {
   )
 }
 
+function SolidBasicsGrid() {
+  const solids = [
+    { title: 'Sześcian', text: '6 kwadratowych ścian, 12 krawędzi, 8 wierzchołków.' },
+    { title: 'Prostopadłościan', text: '6 ścian prostokątnych parami przystających, 12 krawędzi, 8 wierzchołków.' },
+    { title: 'Walec', text: 'Ma 2 koła i powierzchnię boczną. Nie ma wierzchołków.' },
+    { title: 'Stożek', text: 'Ma koło w podstawie i jeden wierzchołek.' },
+    { title: 'Kula', text: 'Nie ma krawędzi ani wierzchołków.' },
+    { title: 'Graniastosłup', text: 'Ma dwie jednakowe podstawy i ściany boczne.' }
+  ]
+
+  return (
+    <div className="visual-grid solid-basics-grid">
+      {solids.map((solid) => (
+        <article key={solid.title} className="info-card">
+          <h3>{solid.title}</h3>
+          <p>{solid.text}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+function CuboidPlayground() {
+  const [length, setLength] = useState(4)
+  const [width, setWidth] = useState(3)
+  const [height, setHeight] = useState(2)
+  const frontBack = length * height * 2
+  const topBottom = length * width * 2
+  const sides = width * height * 2
+  const totalArea = frontBack + topBottom + sides
+
+  return (
+    <section className="playground-card playground-card--cuboid">
+      <div className="playground-card__copy">
+        <h3>Prostopadłościan — policz powierzchnię</h3>
+        <p>
+          Prostopadłościan ma 3 pary jednakowych ścian. Suma pól wszystkich 6 ścian daje pole powierzchni całkowitej.
+        </p>
+
+        <label className="range-control" htmlFor="cuboid-length-range">
+          <span>Długość: <strong>{length} cm</strong></span>
+          <input id="cuboid-length-range" type="range" min="2" max="8" value={length} onChange={(event) => setLength(Number(event.target.value))} />
+        </label>
+
+        <label className="range-control" htmlFor="cuboid-width-range">
+          <span>Szerokość: <strong>{width} cm</strong></span>
+          <input id="cuboid-width-range" type="range" min="2" max="7" value={width} onChange={(event) => setWidth(Number(event.target.value))} />
+        </label>
+
+        <label className="range-control" htmlFor="cuboid-height-range">
+          <span>Wysokość: <strong>{height} cm</strong></span>
+          <input id="cuboid-height-range" type="range" min="2" max="6" value={height} onChange={(event) => setHeight(Number(event.target.value))} />
+        </label>
+
+        <div className="mini-math" aria-live="polite">
+          <p>2 ściany {length} × {height}: <strong>{frontBack} cm²</strong></p>
+          <p>2 ściany {length} × {width}: <strong>{topBottom} cm²</strong></p>
+          <p>2 ściany {width} × {height}: <strong>{sides} cm²</strong></p>
+          <p>Pole całkowite: <strong>{totalArea} cm²</strong></p>
+        </div>
+      </div>
+
+      <div className="cuboid-stage" aria-hidden="true">
+        <div className="cuboid-visual">
+          <span className="cuboid-face cuboid-face--front">{length}×{height}</span>
+          <span className="cuboid-face cuboid-face--top">{length}×{width}</span>
+          <span className="cuboid-face cuboid-face--side">{width}×{height}</span>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function NetQuiz({ selected, onAnswer }) {
   const correct = 'A'
   const isCorrect = selected === correct
@@ -2291,16 +2574,22 @@ function PrintPack() {
       <p>Wersja do druku / PDF</p>
 
       <div className="print-pack__section">
-        <h2>Pola figur płaskich</h2>
+        <h2>Figury płaskie</h2>
         <ul>
           <li>Kwadrat: pole = bok × bok</li>
           <li>Prostokąt: pole = długość × szerokość</li>
           <li>Trójkąt: pole = (podstawa × wysokość) / 2</li>
+          <li>Równoległobok: pole = podstawa × wysokość</li>
+          <li>Trapez: pole = ((a + b) × h) / 2</li>
+          <li>Koło: średnica = 2 × promień, pole ≈ 3,14 × r × r</li>
         </ul>
         <ol>
           <li>Kwadrat ma bok 5 cm. Oblicz pole.</li>
           <li>Prostokąt ma boki 8 cm i 4 cm. Oblicz pole.</li>
           <li>Trójkąt ma podstawę 10 cm i wysokość 6 cm. Oblicz pole.</li>
+          <li>Równoległobok ma podstawę 7 cm i wysokość 3 cm. Oblicz pole.</li>
+          <li>Trapez ma podstawy 8 cm i 4 cm oraz wysokość 5 cm. Oblicz pole.</li>
+          <li>Koło ma promień 3 cm. Podaj średnicę i oblicz pole w przybliżeniu.</li>
         </ol>
       </div>
 
@@ -2323,11 +2612,13 @@ function PrintPack() {
       </div>
 
       <div className="print-pack__section">
-        <h2>Siatki i sześcian</h2>
+        <h2>Siatki i bryły</h2>
         <ol>
           <li>Z ilu kwadratów składa się siatka sześcianu?</li>
           <li>Sześcian ma krawędź 3 cm. Oblicz pole jednej ściany.</li>
           <li>Sześcian ma krawędź 3 cm. Oblicz pole całkowite.</li>
+          <li>Prostopadłościan ma wymiary 4 cm, 3 cm i 2 cm. Oblicz pole całkowite.</li>
+          <li>Ile ścian, krawędzi i wierzchołków ma prostopadłościan?</li>
         </ol>
       </div>
 
@@ -2367,7 +2658,10 @@ function buildCalendar(year, monthIndex) {
 }
 
 function createAreaGeneratorTask(difficulty) {
-  const shapes = difficulty === 'easy' ? ['square', 'rectangle'] : ['square', 'rectangle', 'triangle']
+  const shapes =
+    difficulty === 'easy'
+      ? ['square', 'rectangle', 'triangle', 'parallelogram']
+      : ['square', 'rectangle', 'triangle', 'parallelogram', 'trapezoid', 'rhombus', 'circle', 'perimeter']
   const shape = randomFrom(shapes)
   const taskId = createTaskId('area')
 
@@ -2413,22 +2707,125 @@ function createAreaGeneratorTask(difficulty) {
   }
 
   const base = randomEvenInt(4, 12)
-  const height = randomInt(2, 8)
-  const answer = (base * height) / 2
+  if (shape === 'triangle') {
+    const height = randomInt(2, 8)
+    const answer = (base * height) / 2
+
+    return {
+      id: taskId,
+      prompt: `Trójkąt ma podstawę ${base} cm i wysokość ${height} cm. Jakie jest jego pole?`,
+      answer,
+      answerDisplay: `${answer} cm²`,
+      explanation: `Najpierw ${base} × ${height} = ${base * height}, potem dzielimy przez 2 i dostajemy ${answer}.`,
+      steps: [
+        `Pomnóż podstawę i wysokość: ${base} × ${height} = ${base * height}.`,
+        'Podziel wynik przez 2.',
+        `Otrzymujesz ${answer} cm².`
+      ],
+      unit: 'cm²',
+      placeholder: 'np. 16'
+    }
+  }
+
+  if (shape === 'parallelogram') {
+    const height = randomInt(2, 8)
+    const answer = base * height
+
+    return {
+      id: taskId,
+      prompt: `Równoległobok ma podstawę ${base} cm i wysokość ${height} cm. Jakie jest jego pole?`,
+      answer,
+      answerDisplay: `${answer} cm²`,
+      explanation: `Pole równoległoboku to podstawa razy wysokość, więc ${base} × ${height} = ${answer}.`,
+      steps: [
+        'Wybierz podstawę i odpowiadającą jej wysokość.',
+        `Pomnóż ${base} × ${height}.`,
+        `Wynik to ${answer} cm².`
+      ],
+      unit: 'cm²',
+      placeholder: 'np. 28'
+    }
+  }
+
+  if (shape === 'trapezoid') {
+    const shorterBase = randomInt(3, 8)
+    const longerBase = shorterBase + randomInt(2, 5)
+    const height = randomInt(2, 6)
+    const answer = ((shorterBase + longerBase) * height) / 2
+
+    return {
+      id: taskId,
+      prompt: `Trapez ma podstawy ${longerBase} cm i ${shorterBase} cm oraz wysokość ${height} cm. Jakie jest jego pole?`,
+      answer,
+      answerDisplay: `${answer} cm²`,
+      explanation: `Dodajemy podstawy, dzielimy przez 2 i mnożymy przez wysokość: ((${longerBase} + ${shorterBase}) ÷ 2) × ${height} = ${answer}.`,
+      steps: [
+        `Dodaj podstawy: ${longerBase} + ${shorterBase} = ${longerBase + shorterBase}.`,
+        `Podziel sumę przez 2: ${(longerBase + shorterBase) / 2}.`,
+        `Pomnóż przez wysokość ${height} i otrzymasz ${answer} cm².`
+      ],
+      unit: 'cm²',
+      placeholder: 'np. 18'
+    }
+  }
+
+  if (shape === 'rhombus') {
+    const side = randomInt(3, 8)
+    const answer = side * 4
+
+    return {
+      id: taskId,
+      prompt: `Romb ma bok ${side} cm. Jaki jest jego obwód?`,
+      answer,
+      answerDisplay: `${answer} cm`,
+      explanation: `Romb ma 4 równe boki, więc obwód to 4 × ${side} = ${answer}.`,
+      steps: [
+        'Pamiętaj, że wszystkie boki rombu są równe.',
+        `Dodaj 4 takie same boki: ${side} + ${side} + ${side} + ${side}.`,
+        `Otrzymujesz ${answer} cm.`
+      ],
+      unit: 'cm',
+      placeholder: 'np. 20'
+    }
+  }
+
+  if (shape === 'circle') {
+    const radius = randomInt(2, 6)
+    const answer = Number((PI_APPROX * radius * radius).toFixed(2))
+
+    return {
+      id: taskId,
+      prompt: `Koło ma promień ${radius} cm. Jakie jest jego pole? (użyj π = 3,14)`,
+      answer,
+      answerDisplay: `${formatPolishDecimal(answer)} cm²`,
+      explanation: `Liczymy π × r × r, więc 3,14 × ${radius} × ${radius} ≈ ${formatPolishDecimal(answer)}.`,
+      steps: [
+        `Podnieś promień do kwadratu: ${radius} × ${radius} = ${radius * radius}.`,
+        'Pomnóż wynik przez 3,14.',
+        `Dostajesz około ${formatPolishDecimal(answer)} cm².`
+      ],
+      unit: 'cm²',
+      placeholder: 'np. 28,26'
+    }
+  }
+
+  const a = randomInt(3, 8)
+  const b = randomInt(2, 7)
+  const answer = 2 * a + 2 * b
 
   return {
     id: taskId,
-    prompt: `Trójkąt ma podstawę ${base} cm i wysokość ${height} cm. Jakie jest jego pole?`,
+    prompt: `Prostokąt ma boki ${a} cm i ${b} cm. Jaki jest jego obwód?`,
     answer,
-    answerDisplay: `${answer} cm²`,
-    explanation: `Najpierw ${base} × ${height} = ${base * height}, potem dzielimy przez 2 i dostajemy ${answer}.`,
+    answerDisplay: `${answer} cm`,
+    explanation: `Obwód prostokąta to 2a + 2b, więc 2 × ${a} + 2 × ${b} = ${answer}.`,
     steps: [
-      `Pomnóż podstawę i wysokość: ${base} × ${height} = ${base * height}.`,
-      'Podziel wynik przez 2.',
-      `Otrzymujesz ${answer} cm².`
+      `Dodaj dwa dłuższe boki: ${a} + ${a} = ${2 * a}.`,
+      `Dodaj dwa krótsze boki: ${b} + ${b} = ${2 * b}.`,
+      `Razem daje to ${answer} cm.`
     ],
-    unit: 'cm²',
-    placeholder: 'np. 16'
+    unit: 'cm',
+    placeholder: 'np. 22'
   }
 }
 
@@ -2701,23 +3098,47 @@ function createDecimalGeneratorTask(difficulty) {
 }
 
 function createCubeGeneratorTask(difficulty) {
-  const edge = randomInt(1, difficulty === 'easy' ? 4 : 7)
-  const faceArea = edge * edge
-  const answer = faceArea * 6
+  const type = randomFrom(difficulty === 'easy' ? ['cube'] : ['cube', 'cuboid'])
+
+  if (type === 'cube') {
+    const edge = randomInt(1, difficulty === 'easy' ? 4 : 7)
+    const faceArea = edge * edge
+    const answer = faceArea * 6
+
+    return {
+      id: createTaskId('cube'),
+      prompt: `Sześcian ma krawędź ${edge} cm. Jakie jest jego pole całkowite?`,
+      answer,
+      answerDisplay: `${answer} cm²`,
+      explanation: `Jedna ściana ma pole ${edge} × ${edge} = ${faceArea}, a ścian jest 6, więc wynik to ${answer}.`,
+      steps: [
+        `Oblicz pole jednej ściany: ${edge} × ${edge} = ${faceArea}.`,
+        'Pamiętaj, że sześcian ma 6 ścian.',
+        `Pomnóż 6 × ${faceArea} = ${answer}.`
+      ],
+      unit: 'cm²',
+      placeholder: 'np. 54'
+    }
+  }
+
+  const length = randomInt(2, 7)
+  const width = randomInt(2, 6)
+  const height = randomInt(2, 5)
+  const answer = 2 * (length * width + length * height + width * height)
 
   return {
-    id: createTaskId('cube'),
-    prompt: `Sześcian ma krawędź ${edge} cm. Jakie jest jego pole całkowite?`,
+    id: createTaskId('cuboid'),
+    prompt: `Prostopadłościan ma wymiary ${length} cm, ${width} cm i ${height} cm. Jakie jest jego pole całkowite?`,
     answer,
     answerDisplay: `${answer} cm²`,
-    explanation: `Jedna ściana ma pole ${edge} × ${edge} = ${faceArea}, a ścian jest 6, więc wynik to ${answer}.`,
+    explanation: `Liczymy trzy pary ścian: 2 × (${length} × ${width} + ${length} × ${height} + ${width} × ${height}) = ${answer}.`,
     steps: [
-      `Oblicz pole jednej ściany: ${edge} × ${edge} = ${faceArea}.`,
-      'Pamiętaj, że sześcian ma 6 ścian.',
-      `Pomnóż 6 × ${faceArea} = ${answer}.`
+      `Policz pola trzech różnych ścian: ${length} × ${width}, ${length} × ${height}, ${width} × ${height}.`,
+      'Dodaj te pola i pomnóż przez 2, bo każda taka ściana występuje dwa razy.',
+      `Wynik to ${answer} cm².`
     ],
     unit: 'cm²',
-    placeholder: 'np. 54'
+    placeholder: 'np. 52'
   }
 }
 

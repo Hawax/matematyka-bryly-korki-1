@@ -491,6 +491,10 @@ svg {
   gap: 10px;
 }
 
+.formula-chip--soft {
+  background: #fff7ed;
+}
+
 .visual-grid--3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-bottom: 18px;
@@ -498,6 +502,12 @@ svg {
 
 .fraction-basics-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 18px;
+}
+
+.figure-gallery,
+.solid-basics-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-bottom: 18px;
 }
 
@@ -811,6 +821,11 @@ svg {
   align-items: stretch;
 }
 
+.playground-card--circle,
+.playground-card--cuboid {
+  align-items: center;
+}
+
 .triangle-stage {
   display: grid;
   gap: 12px;
@@ -869,6 +884,92 @@ svg {
 
 .triangle-note__swatch--rect {
   background: rgba(129, 140, 248, 0.16);
+}
+
+.triangle-note__swatch--circle {
+  background: rgba(59, 130, 246, 0.22);
+}
+
+.circle-stage,
+.cuboid-stage {
+  display: grid;
+  gap: 14px;
+  place-items: center;
+}
+
+.circle-shape {
+  --circle-size: 160px;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 50%;
+  border: 4px solid var(--border);
+  background: radial-gradient(circle at center, rgba(129, 140, 248, 0.2) 0 68%, rgba(79, 70, 229, 0.08) 68% 100%);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.circle-shape__center {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--border);
+}
+
+.circle-shape__radius {
+  position: absolute;
+  width: 45%;
+  height: 4px;
+  left: 50%;
+  top: 50%;
+  transform-origin: left center;
+  transform: translateY(-50%);
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.cuboid-visual {
+  position: relative;
+  width: 220px;
+  height: 160px;
+}
+
+.cuboid-face {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.cuboid-face--front {
+  left: 30px;
+  bottom: 10px;
+  width: 120px;
+  height: 88px;
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.cuboid-face--top {
+  left: 58px;
+  top: 6px;
+  width: 120px;
+  height: 58px;
+  transform: skew(-35deg);
+  background: rgba(129, 140, 248, 0.2);
+}
+
+.cuboid-face--side {
+  right: 12px;
+  bottom: 22px;
+  width: 62px;
+  height: 88px;
+  transform: skewY(-35deg);
+  background: rgba(79, 70, 229, 0.16);
 }
 
 .quiz-card__header,
@@ -1502,6 +1603,8 @@ input:focus-visible {
   .playground-card,
   .roadmap-grid,
   .visual-grid--3,
+  .figure-gallery,
+  .solid-basics-grid,
   .net-options,
   .fraction-example-grid,
   .fraction-legend,
