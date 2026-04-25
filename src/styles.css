@@ -495,6 +495,13 @@ svg {
   background: #fff7ed;
 }
 
+.formula-chip__equation {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .visual-grid--3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-bottom: 18px;

@@ -1739,6 +1739,16 @@ function AreaVisualShowcase() {
 }
 
 function PlaneFiguresGallery() {
+  const fractionFormula = (top) => (
+    <span className="formula-chip__equation">
+      <span>P =</span>
+      <span className="math-fraction" aria-hidden="true">
+        <span className="math-fraction__top">{top}</span>
+        <span className="math-fraction__bottom">2</span>
+      </span>
+    </span>
+  )
+
   const figures = [
     {
       type: 'square',
@@ -1758,7 +1768,7 @@ function PlaneFiguresGallery() {
       type: 'triangle',
       title: 'Trójkąt',
       note: 'Pole liczymy z podstawy i wysokości',
-      area: 'P = (a · h) / 2',
+      area: fractionFormula('a · h'),
       perimeter: 'O = a + b + c'
     },
     {
@@ -1779,14 +1789,22 @@ function PlaneFiguresGallery() {
       type: 'rhombus',
       title: 'Romb',
       note: 'Ma 4 równe boki',
-      area: 'P = a · h lub (e · f) / 2',
+      area: (
+        <span className="formula-chip__equation">
+          <span>P = a · h lub</span>
+          <span className="math-fraction" aria-hidden="true">
+            <span className="math-fraction__top">e · f</span>
+            <span className="math-fraction__bottom">2</span>
+          </span>
+        </span>
+      ),
       perimeter: 'O = 4a'
     },
     {
       type: 'trapezoid',
       title: 'Trapez',
       note: 'Ma jedną parę boków równoległych',
-      area: 'P = ((a + b) · h) / 2',
+      area: fractionFormula('(a + b) · h'),
       perimeter: 'O = suma wszystkich boków'
     },
     {
@@ -2670,9 +2688,23 @@ function PrintPack() {
         <ul>
           <li>Kwadrat: pole = bok · bok</li>
           <li>Prostokąt: pole = długość · szerokość</li>
-          <li>Trójkąt: pole = (podstawa · wysokość) / 2</li>
+          <li>
+            Trójkąt: pole =
+            {' '}
+            <span className="math-fraction">
+              <span className="math-fraction__top">podstawa · wysokość</span>
+              <span className="math-fraction__bottom">2</span>
+            </span>
+          </li>
           <li>Równoległobok: pole = podstawa · wysokość</li>
-          <li>Trapez: pole = ((a + b) · h) / 2</li>
+          <li>
+            Trapez: pole =
+            {' '}
+            <span className="math-fraction">
+              <span className="math-fraction__top">(a + b) · h</span>
+              <span className="math-fraction__bottom">2</span>
+            </span>
+          </li>
           <li>Koło: średnica = 2 · promień, pole ≈ 3,14 · r · r</li>
         </ul>
         <ol>
