@@ -988,7 +988,7 @@ function FractionBridgeVisual() {
           <div>
             <h3>Liczba mieszana — zrób to sam</h3>
             <p>
-              Tu możesz zobaczyć, że na przykład <strong>2 3/4</strong> można zamienić
+              Tu możesz zobaczyć, że na przykład <strong><MathText text="2 3/4" /></strong> można zamienić
               na ułamek niewłaściwy i na zapis dziesiętny.
             </p>
           </div>
@@ -1123,8 +1123,8 @@ function FractionBasicsGrid() {
       {basics.map((item) => (
         <article key={item.title} className="info-card">
           <h3>{item.title}</h3>
-          <div className="formula-chip">{item.example}</div>
-          <p>{item.text}</p>
+          <div className="formula-chip"><MathText text={item.example} /></div>
+          <p><MathText text={item.text} /></p>
         </article>
       ))}
     </div>
@@ -1163,15 +1163,15 @@ function FractionOperationsLab() {
         <article key={example.title} className="info-card info-card--accent">
           <h3>{example.title}</h3>
           <div className="equation-line">
-            <span>{example.prompt}</span>
+            <span><MathText text={example.prompt} /></span>
             <strong>→</strong>
-            <span>{example.common}</span>
+            <span><MathText text={example.common} /></span>
             <strong>→</strong>
-            <span>{example.answer}</span>
+            <span><MathText text={example.answer} /></span>
           </div>
           <ol className="steps-list">
             {example.steps.map((step) => (
-              <li key={step}>{step}</li>
+              <li key={step}><MathText text={step} /></li>
             ))}
           </ol>
         </article>
@@ -1319,6 +1319,49 @@ function SectionCard({ title, subtitle, children }) {
   )
 }
 
+function MathText({ text, as: Component = 'span', className }) {
+  return <Component className={className}>{formatMathText(text)}</Component>
+}
+
+function formatMathText(text) {
+  if (typeof text !== 'string') {
+    return text
+  }
+
+  const parts = []
+  const regex = /(\d+\/\d+)/g
+  let lastIndex = 0
+  let match
+
+  while ((match = regex.exec(text)) !== null) {
+    const [value] = match
+
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+
+    parts.push(<InlineFraction key={`${value}-${match.index}`} value={value} />)
+    lastIndex = match.index + value.length
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : text
+}
+
+function InlineFraction({ value }) {
+  const [top, bottom] = value.split('/')
+
+  return (
+    <span className="math-fraction math-fraction--inline-text" aria-label={`${top} przez ${bottom}`}>
+      <span className="math-fraction__top">{top}</span>
+      <span className="math-fraction__bottom">{bottom}</span>
+    </span>
+  )
+}
+
 function ChoiceQuiz({ id, question, options, correct, hint, explanation, selected, onAnswer }) {
   const [showHint, setShowHint] = useState(false)
   const hasAnswer = Boolean(selected)
@@ -1327,13 +1370,13 @@ function ChoiceQuiz({ id, question, options, correct, hint, explanation, selecte
   return (
     <article className="quiz-card">
       <div className="quiz-card__header">
-        <h3>{question}</h3>
+        <h3><MathText text={question} /></h3>
         <button type="button" className="ghost-button" onClick={() => setShowHint((prev) => !prev)}>
           {showHint ? 'Ukryj podpowiedź' : 'Pokaż podpowiedź'}
         </button>
       </div>
 
-      {showHint ? <p className="quiz-hint">{hint}</p> : null}
+      {showHint ? <p className="quiz-hint"><MathText text={hint} /></p> : null}
 
       <div className="quiz-options">
         {options.map((option) => {
@@ -1350,7 +1393,7 @@ function ChoiceQuiz({ id, question, options, correct, hint, explanation, selecte
               } ${shouldGlowCorrect ? 'option-button--correct' : ''}`}
               onClick={() => onAnswer(option)}
             >
-              {option}
+              <MathText text={option} />
             </button>
           )
         })}
@@ -1358,8 +1401,8 @@ function ChoiceQuiz({ id, question, options, correct, hint, explanation, selecte
 
       <div className={`feedback ${isCorrect ? 'feedback--success' : hasAnswer ? 'feedback--warning' : ''}`} aria-live="polite">
         {!hasAnswer && <span>Wybierz odpowiedź i sprawdź, czy pasuje.</span>}
-        {hasAnswer && !isCorrect && <span>Jeszcze nie. {explanation}</span>}
-        {isCorrect && <span>{explanation}</span>}
+        {hasAnswer && !isCorrect && <span>Jeszcze nie. <MathText text={explanation} /></span>}
+        {isCorrect && <span><MathText text={explanation} /></span>}
       </div>
 
       <span className="sr-only">Id zadania: {id}</span>
@@ -1431,7 +1474,7 @@ function GeneratedNumericPractice({ title, description, buildTask, topicKey, onP
       </div>
 
       <div className="generator-card__body">
-        <p className="generator-prompt">{task.prompt}</p>
+        <p className="generator-prompt"><MathText text={task.prompt} /></p>
 
         <div className="answer-row">
           <label className="generator-input" htmlFor={`${topicKey}-${title}-answer`}>
@@ -1467,16 +1510,16 @@ function GeneratedNumericPractice({ title, description, buildTask, topicKey, onP
           {checked && !hasAnswer && <span>Najpierw wpisz odpowiedź.</span>}
           {checked && hasAnswer && !isCorrect && (
             <span>
-              Jeszcze nie. Dobra odpowiedź to <strong>{task.answerDisplay}</strong>. {task.explanation}
+              Jeszcze nie. Dobra odpowiedź to <strong><MathText text={task.answerDisplay} /></strong>. <MathText text={task.explanation} />
             </span>
           )}
-          {checked && isCorrect && <span>Świetnie. {task.explanation}</span>}
+          {checked && isCorrect && <span>Świetnie. <MathText text={task.explanation} /></span>}
         </div>
 
         {checked && hasAnswer ? (
           <ol className="steps-list">
             {task.steps.map((step) => (
-              <li key={step}>{step}</li>
+              <li key={step}><MathText text={step} /></li>
             ))}
           </ol>
         ) : null}
@@ -1541,7 +1584,7 @@ function GeneratedFractionChoicePractice({ topicKey, onPracticeResult }) {
         </div>
       </div>
 
-      <p className="generator-prompt">{task.prompt}</p>
+      <p className="generator-prompt"><MathText text={task.prompt} /></p>
 
       <div className="quiz-options">
         {task.options.map((option) => {
@@ -1558,7 +1601,7 @@ function GeneratedFractionChoicePractice({ topicKey, onPracticeResult }) {
               } ${shouldGlowCorrect ? 'option-button--correct' : ''}`}
               onClick={() => handleSelect(option)}
             >
-              {option}
+              <MathText text={option} />
             </button>
           )
         })}
@@ -1574,16 +1617,16 @@ function GeneratedFractionChoicePractice({ topicKey, onPracticeResult }) {
         {!hasAnswer && <span>Wybierz odpowiedź. Strona od razu pokaże wyjaśnienie.</span>}
         {hasAnswer && !isCorrect && (
           <span>
-            Jeszcze nie. Dobra odpowiedź to <strong>{task.correct}</strong>. {task.explanation}
+            Jeszcze nie. Dobra odpowiedź to <strong><MathText text={task.correct} /></strong>. <MathText text={task.explanation} />
           </span>
         )}
-        {isCorrect && <span>Super. {task.explanation}</span>}
+        {isCorrect && <span>Super. <MathText text={task.explanation} /></span>}
       </div>
 
       {hasAnswer ? (
         <ol className="steps-list">
           {task.steps.map((step) => (
-            <li key={step}>{step}</li>
+            <li key={step}><MathText text={step} /></li>
           ))}
         </ol>
       ) : null}
@@ -2725,9 +2768,9 @@ function PrintPack() {
           <li>Skracanie: dzielimy licznik i mianownik przez tę samą liczbę.</li>
         </ul>
         <ol>
-          <li>Oblicz: 1/2 + 1/4.</li>
-          <li>Oblicz: 5/6 - 1/3.</li>
-          <li>Skróć ułamek 6/8.</li>
+          <li><MathText text="Oblicz: 1/2 + 1/4." /></li>
+          <li><MathText text="Oblicz: 5/6 - 1/3." /></li>
+          <li><MathText text="Skróć ułamek 6/8." /></li>
           <li>2,5 m zamień na centymetry.</li>
           <li>1,75 kg zamień na gramy.</li>
           <li>1,5 godziny zamień na minuty.</li>
