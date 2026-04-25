@@ -511,6 +511,16 @@ svg {
   margin-bottom: 18px;
 }
 
+.figure-gallery .visual-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.figure-gallery .formula-chip {
+  white-space: normal;
+  line-height: 1.35;
+}
+
 .visual-card,
 .info-card--accent,
 .temperature-lab,
@@ -524,6 +534,17 @@ svg {
   display: grid;
   place-items: center;
   margin-bottom: 8px;
+}
+
+.figure-preview {
+  min-height: 112px;
+  margin-bottom: 10px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px dashed rgba(49, 46, 129, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(238, 242, 255, 0.9) 100%);
 }
 
 .shape-svg {
@@ -540,6 +561,16 @@ svg {
   font-size: 12px;
   font-weight: 700;
   font-family: 'Nunito', system-ui, sans-serif;
+}
+
+.shape-svg--preview {
+  max-width: 156px;
+}
+
+.shape-svg__center {
+  fill: var(--accent);
+  stroke: var(--border);
+  stroke-width: 2;
 }
 
 .two-column,

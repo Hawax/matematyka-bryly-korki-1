@@ -90,24 +90,24 @@ const fixedQuizzes = {
       question: 'Kwadrat ma bok 6 cm. Jakie ma pole?',
       options: ['12 cm²', '36 cm²', '18 cm²'],
       correct: '36 cm²',
-      hint: 'Kwadrat liczymy: bok × bok.',
-      explanation: '6 × 6 = 36, więc pole kwadratu to 36 cm².'
+      hint: 'Kwadrat liczymy: bok · bok.',
+      explanation: '6 · 6 = 36, więc pole kwadratu to 36 cm².'
     },
     {
       id: 'pole-2',
       question: 'Prostokąt ma boki 7 cm i 3 cm. Jakie ma pole?',
       options: ['10 cm²', '21 cm²', '28 cm²'],
       correct: '21 cm²',
-      hint: 'Prostokąt liczymy: długość × szerokość.',
-      explanation: '7 × 3 = 21, więc pole prostokąta to 21 cm².'
+      hint: 'Prostokąt liczymy: długość · szerokość.',
+      explanation: '7 · 3 = 21, więc pole prostokąta to 21 cm².'
     },
     {
       id: 'pole-3',
       question: 'Trójkąt ma podstawę 8 cm i wysokość 4 cm. Jakie ma pole?',
       options: ['32 cm²', '16 cm²', '12 cm²'],
       correct: '16 cm²',
-      hint: 'Najpierw 8 × 4, a potem dzielimy przez 2.',
-      explanation: '8 × 4 = 32, a 32 : 2 = 16. Pole trójkąta to 16 cm².'
+      hint: 'Najpierw 8 · 4, a potem dzielimy przez 2.',
+      explanation: '8 · 4 = 32, a 32 : 2 = 16. Pole trójkąta to 16 cm².'
     },
     {
       id: 'pole-4',
@@ -115,15 +115,15 @@ const fixedQuizzes = {
       options: ['18 cm²', '81 cm²', '27 cm²'],
       correct: '81 cm²',
       hint: 'Kwadrat to bok razy ten sam bok.',
-      explanation: '9 × 9 = 81, więc pole kwadratu to 81 cm².'
+      explanation: '9 · 9 = 81, więc pole kwadratu to 81 cm².'
     },
     {
       id: 'pole-5',
       question: 'Prostokąt ma boki 5 cm i 6 cm. Jakie ma pole?',
       options: ['11 cm²', '30 cm²', '60 cm²'],
       correct: '30 cm²',
-      hint: 'Prostokąt liczymy: a × b.',
-      explanation: '5 × 6 = 30, więc pole prostokąta to 30 cm².'
+      hint: 'Prostokąt liczymy: a · b.',
+      explanation: '5 · 6 = 30, więc pole prostokąta to 30 cm².'
     },
     {
       id: 'pole-6',
@@ -131,15 +131,15 @@ const fixedQuizzes = {
       options: ['3 cm', '6 cm', '9 cm'],
       correct: '6 cm',
       hint: 'Średnica to dwa promienie.',
-      explanation: 'Średnica jest 2 razy większa od promienia, więc 2 × 3 = 6 cm.'
+      explanation: 'Średnica jest 2 razy większa od promienia, więc 2 · 3 = 6 cm.'
     },
     {
       id: 'pole-7',
       question: 'Równoległobok ma podstawę 7 cm i wysokość 4 cm. Jakie ma pole?',
       options: ['11 cm²', '28 cm²', '22 cm²'],
       correct: '28 cm²',
-      hint: 'Pole równoległoboku to podstawa × wysokość.',
-      explanation: '7 × 4 = 28, więc pole równoległoboku to 28 cm².'
+      hint: 'Pole równoległoboku to podstawa · wysokość.',
+      explanation: '7 · 4 = 28, więc pole równoległoboku to 28 cm².'
     },
     {
       id: 'pole-8',
@@ -147,7 +147,7 @@ const fixedQuizzes = {
       options: ['10 cm', '20 cm', '25 cm'],
       correct: '20 cm',
       hint: 'Romb ma 4 równe boki.',
-      explanation: 'Obwód rombu to 4 × bok, więc 4 × 5 = 20 cm.'
+      explanation: 'Obwód rombu to 4 · bok, więc 4 · 5 = 20 cm.'
     },
     {
       id: 'pole-9',
@@ -155,7 +155,7 @@ const fixedQuizzes = {
       options: ['12 cm²', '18 cm²', '24 cm²'],
       correct: '18 cm²',
       hint: 'Dodaj podstawy, podziel przez 2, a potem pomnóż przez wysokość.',
-      explanation: '(8 + 4) : 2 = 6, a 6 × 3 = 18 cm².'
+      explanation: '(8 + 4) : 2 = 6, a 6 · 3 = 18 cm².'
     },
     {
       id: 'pole-10',
@@ -274,8 +274,8 @@ const fixedQuizzes = {
       question: 'Sześcian ma krawędź 2 cm. Jakie jest jego pole całkowite?',
       options: ['8 cm²', '24 cm²', '12 cm²'],
       correct: '24 cm²',
-      hint: 'Jedna ściana ma pole 2 × 2, a ścian jest 6.',
-      explanation: 'Jedna ściana ma 4 cm², a 6 × 4 = 24 cm².'
+      hint: 'Jedna ściana ma pole 2 · 2, a ścian jest 6.',
+      explanation: 'Jedna ściana ma 4 cm², a 6 · 4 = 24 cm².'
     },
     {
       id: 'net-3',
@@ -291,7 +291,7 @@ const fixedQuizzes = {
       options: ['6 cm²', '9 cm²', '12 cm²'],
       correct: '9 cm²',
       hint: 'Jedna ściana jest kwadratem.',
-      explanation: '3 × 3 = 9, więc jedna ściana ma pole 9 cm².'
+      explanation: '3 · 3 = 9, więc jedna ściana ma pole 9 cm².'
     },
     {
       id: 'net-5',
@@ -299,7 +299,7 @@ const fixedQuizzes = {
       options: ['64 cm²', '80 cm²', '96 cm²'],
       correct: '96 cm²',
       hint: 'Sześcian ma 6 ścian.',
-      explanation: '6 × 16 = 96, więc pole całkowite to 96 cm².'
+      explanation: '6 · 16 = 96, więc pole całkowite to 96 cm².'
     },
     {
       id: 'net-6',
@@ -1057,7 +1057,7 @@ function FractionBridgeVisual() {
         </div>
 
         <div className="formula-card mixed-equation__explanation">
-          <strong>Krok po kroku:</strong> {whole} × {bottom} + {safeTop} = {improperTop}, więc
+          <strong>Krok po kroku:</strong> {whole} · {bottom} + {safeTop} = {improperTop}, więc
           {' '}
           {whole}{' '}
           <span className="math-fraction">
@@ -1701,19 +1701,19 @@ function AreaVisualShowcase() {
         </div>
         <h3>Kwadrat</h3>
         <p>Wszystkie boki są równe.</p>
-        <div className="formula-chip">pole = bok × bok</div>
+        <div className="formula-chip">pole = bok · bok</div>
       </article>
 
       <article className="visual-card">
         <div className="shape-box">
           <svg viewBox="0 0 140 120" className="shape-svg" aria-hidden="true">
             <rect x="18" y="30" width="104" height="60" rx="12" />
-            <text x="70" y="110" textAnchor="middle">długość × szerokość</text>
+            <text x="70" y="110" textAnchor="middle">długość · szerokość</text>
           </svg>
         </div>
         <h3>Prostokąt</h3>
         <p>Dwa boki mogą być dłuższe, dwa krótsze.</p>
-        <div className="formula-chip">pole = a × b</div>
+        <div className="formula-chip">pole = a · b</div>
       </article>
 
       <article className="visual-card">
@@ -1729,7 +1729,7 @@ function AreaVisualShowcase() {
         <div className="formula-chip formula-chip--fraction">
           <span>pole =</span>
           <span className="math-fraction" aria-label="a razy h przez 2">
-            <span className="math-fraction__top">a × h</span>
+            <span className="math-fraction__top">a · h</span>
             <span className="math-fraction__bottom">2</span>
           </span>
         </div>
@@ -1741,48 +1741,56 @@ function AreaVisualShowcase() {
 function PlaneFiguresGallery() {
   const figures = [
     {
+      type: 'square',
       title: 'Kwadrat',
       note: '4 równe boki i 4 kąty proste',
-      area: 'P = a × a',
+      area: 'P = a · a',
       perimeter: 'O = 4a'
     },
     {
+      type: 'rectangle',
       title: 'Prostokąt',
       note: 'Przeciwległe boki są równe',
-      area: 'P = a × b',
+      area: 'P = a · b',
       perimeter: 'O = 2a + 2b'
     },
     {
+      type: 'triangle',
       title: 'Trójkąt',
       note: 'Pole liczymy z podstawy i wysokości',
-      area: 'P = (a × h) / 2',
+      area: 'P = (a · h) / 2',
       perimeter: 'O = a + b + c'
     },
     {
+      type: 'circle',
       title: 'Koło',
       note: 'Promień r, średnica d = 2r',
       area: 'P ≈ πr²',
       perimeter: 'Obwód ≈ 2πr'
     },
     {
+      type: 'parallelogram',
       title: 'Równoległobok',
       note: 'Ma 2 pary boków równoległych',
-      area: 'P = a × h',
+      area: 'P = a · h',
       perimeter: 'O = 2a + 2b'
     },
     {
+      type: 'rhombus',
       title: 'Romb',
       note: 'Ma 4 równe boki',
-      area: 'P = a × h lub (e × f) / 2',
+      area: 'P = a · h lub (e · f) / 2',
       perimeter: 'O = 4a'
     },
     {
+      type: 'trapezoid',
       title: 'Trapez',
       note: 'Ma jedną parę boków równoległych',
-      area: 'P = ((a + b) × h) / 2',
+      area: 'P = ((a + b) · h) / 2',
       perimeter: 'O = suma wszystkich boków'
     },
     {
+      type: 'polygon',
       title: 'Wielokąty',
       note: 'Pięciokąt, sześciokąt i dalej',
       area: 'Dzielimy figurę na mniejsze części',
@@ -1794,6 +1802,9 @@ function PlaneFiguresGallery() {
     <div className="visual-grid figure-gallery">
       {figures.map((figure) => (
         <article key={figure.title} className="visual-card">
+          <div className="figure-preview">
+            <FigurePreview type={figure.type} />
+          </div>
           <h3>{figure.title}</h3>
           <p>{figure.note}</p>
           <div className="formula-chip">{figure.area}</div>
@@ -1801,6 +1812,87 @@ function PlaneFiguresGallery() {
         </article>
       ))}
     </div>
+  )
+}
+
+function FigurePreview({ type }) {
+  if (type === 'square') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <rect x="30" y="14" width="54" height="54" rx="10" />
+        <text x="57" y="83" textAnchor="middle">4 równe boki</text>
+      </svg>
+    )
+  }
+
+  if (type === 'rectangle') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <rect x="18" y="22" width="84" height="42" rx="10" />
+        <text x="60" y="83" textAnchor="middle">2 dłuższe, 2 krótsze</text>
+      </svg>
+    )
+  }
+
+  if (type === 'triangle') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <path d="M20 68 100 68 58 16Z" />
+        <line x1="58" y1="16" x2="58" y2="68" strokeDasharray="5 5" />
+        <text x="58" y="83" textAnchor="middle">podstawa i wysokość</text>
+      </svg>
+    )
+  }
+
+  if (type === 'circle') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <circle cx="58" cy="42" r="24" />
+        <line x1="58" y1="42" x2="82" y2="42" strokeDasharray="0" />
+        <circle cx="58" cy="42" r="4" className="shape-svg__center" />
+        <text x="60" y="83" textAnchor="middle">promień r</text>
+      </svg>
+    )
+  }
+
+  if (type === 'parallelogram') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <path d="M34 18 92 18 78 64 20 64Z" />
+        <line x1="78" y1="18" x2="78" y2="64" strokeDasharray="5 5" />
+        <text x="58" y="83" textAnchor="middle">podstawa a i h</text>
+      </svg>
+    )
+  }
+
+  if (type === 'rhombus') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <path d="M58 14 94 42 58 70 22 42Z" />
+        <line x1="58" y1="14" x2="58" y2="70" strokeDasharray="5 5" />
+        <line x1="22" y1="42" x2="94" y2="42" strokeDasharray="5 5" />
+        <text x="58" y="83" textAnchor="middle">przekątne e i f</text>
+      </svg>
+    )
+  }
+
+  if (type === 'trapezoid') {
+    return (
+      <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+        <path d="M34 20 82 20 98 64 18 64Z" />
+        <line x1="82" y1="20" x2="82" y2="64" strokeDasharray="5 5" />
+        <text x="58" y="83" textAnchor="middle">2 podstawy i h</text>
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 120 90" className="shape-svg shape-svg--preview" aria-hidden="true">
+      <path d="M58 12 92 28 84 66 32 72 16 34Z" />
+      <line x1="58" y1="12" x2="84" y2="66" strokeDasharray="5 5" />
+      <line x1="16" y1="34" x2="92" y2="28" strokeDasharray="5 5" />
+      <text x="58" y="83" textAnchor="middle">dzielimy na części</text>
+    </svg>
   )
 }
 
@@ -1857,7 +1949,7 @@ function AreaPlayground() {
         </label>
 
         <div className="formula-card" aria-live="polite">
-          Pole = {width} × {height} = <strong>{total}</strong>
+          Pole = {width} · {height} = <strong>{total}</strong>
         </div>
       </div>
 
@@ -1921,12 +2013,12 @@ function TrianglePlayground() {
           <span>Pole</span>
           <strong>=</strong>
           <span className="math-fraction" aria-label={`a razy h przez 2, czyli ${area}`}>
-            <span className="math-fraction__top">a × h</span>
+            <span className="math-fraction__top">a · h</span>
             <span className="math-fraction__bottom">2</span>
           </span>
           <strong>=</strong>
           <span className="math-fraction">
-            <span className="math-fraction__top">{base} × {height}</span>
+            <span className="math-fraction__top">{base} · {height}</span>
             <span className="math-fraction__bottom">2</span>
           </span>
           <strong>= {area} cm²</strong>
@@ -2004,8 +2096,8 @@ function CircleLab() {
 
         <div className="mini-math" aria-live="polite">
           <p>Średnica: d = 2r = <strong>{diameter} cm</strong></p>
-          <p>Obwód: 2 × 3,14 × {radius} = <strong>{formatPolishDecimal(circumference)} cm</strong></p>
-          <p>Pole: 3,14 × {radius} × {radius} = <strong>{formatPolishDecimal(area)} cm²</strong></p>
+          <p>Obwód: 2 · 3,14 · {radius} = <strong>{formatPolishDecimal(circumference)} cm</strong></p>
+          <p>Pole: 3,14 · {radius} · {radius} = <strong>{formatPolishDecimal(area)} cm²</strong></p>
         </div>
       </div>
 
@@ -2290,8 +2382,8 @@ function CubePlayground() {
       </label>
 
       <div className="mini-math" aria-live="polite">
-        <p>Jedna ściana: {edge} × {edge} = <strong>{faceArea} cm²</strong></p>
-        <p>Sześć ścian: 6 × {faceArea} = <strong>{totalArea} cm²</strong></p>
+        <p>Jedna ściana: {edge} · {edge} = <strong>{faceArea} cm²</strong></p>
+        <p>Sześć ścian: 6 · {faceArea} = <strong>{totalArea} cm²</strong></p>
       </div>
 
       <div className="cube-net-grid" style={{ '--cube-face-size': `${tileSize}px` }} aria-hidden="true">
@@ -2369,18 +2461,18 @@ function CuboidPlayground() {
         </label>
 
         <div className="mini-math" aria-live="polite">
-          <p>2 ściany {length} × {height}: <strong>{frontBack} cm²</strong></p>
-          <p>2 ściany {length} × {width}: <strong>{topBottom} cm²</strong></p>
-          <p>2 ściany {width} × {height}: <strong>{sides} cm²</strong></p>
+          <p>2 ściany {length} · {height}: <strong>{frontBack} cm²</strong></p>
+          <p>2 ściany {length} · {width}: <strong>{topBottom} cm²</strong></p>
+          <p>2 ściany {width} · {height}: <strong>{sides} cm²</strong></p>
           <p>Pole całkowite: <strong>{totalArea} cm²</strong></p>
         </div>
       </div>
 
       <div className="cuboid-stage" aria-hidden="true">
         <div className="cuboid-visual">
-          <span className="cuboid-face cuboid-face--front">{length}×{height}</span>
-          <span className="cuboid-face cuboid-face--top">{length}×{width}</span>
-          <span className="cuboid-face cuboid-face--side">{width}×{height}</span>
+          <span className="cuboid-face cuboid-face--front">{length}·{height}</span>
+          <span className="cuboid-face cuboid-face--top">{length}·{width}</span>
+          <span className="cuboid-face cuboid-face--side">{width}·{height}</span>
         </div>
       </div>
     </section>
@@ -2576,12 +2668,12 @@ function PrintPack() {
       <div className="print-pack__section">
         <h2>Figury płaskie</h2>
         <ul>
-          <li>Kwadrat: pole = bok × bok</li>
-          <li>Prostokąt: pole = długość × szerokość</li>
-          <li>Trójkąt: pole = (podstawa × wysokość) / 2</li>
-          <li>Równoległobok: pole = podstawa × wysokość</li>
-          <li>Trapez: pole = ((a + b) × h) / 2</li>
-          <li>Koło: średnica = 2 × promień, pole ≈ 3,14 × r × r</li>
+          <li>Kwadrat: pole = bok · bok</li>
+          <li>Prostokąt: pole = długość · szerokość</li>
+          <li>Trójkąt: pole = (podstawa · wysokość) / 2</li>
+          <li>Równoległobok: pole = podstawa · wysokość</li>
+          <li>Trapez: pole = ((a + b) · h) / 2</li>
+          <li>Koło: średnica = 2 · promień, pole ≈ 3,14 · r · r</li>
         </ul>
         <ol>
           <li>Kwadrat ma bok 5 cm. Oblicz pole.</li>
@@ -2674,10 +2766,10 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Kwadrat ma bok ${side} cm. Jakie jest jego pole?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Pole kwadratu liczymy: ${side} × ${side} = ${answer}.`,
+      explanation: `Pole kwadratu liczymy: ${side} · ${side} = ${answer}.`,
       steps: [
         'Spójrz, jaki jest bok kwadratu.',
-        `Pomnóż bok przez ten sam bok: ${side} × ${side}.`,
+        `Pomnóż bok przez ten sam bok: ${side} · ${side}.`,
         `Otrzymujesz ${answer} cm².`
       ],
       unit: 'cm²',
@@ -2695,10 +2787,10 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Prostokąt ma boki ${width} cm i ${height} cm. Jakie jest jego pole?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Pole prostokąta liczymy: ${width} × ${height} = ${answer}.`,
+      explanation: `Pole prostokąta liczymy: ${width} · ${height} = ${answer}.`,
       steps: [
         'Znajdź długość i szerokość.',
-        `Pomnóż ${width} × ${height}.`,
+        `Pomnóż ${width} · ${height}.`,
         `Wynik to ${answer} cm².`
       ],
       unit: 'cm²',
@@ -2716,9 +2808,9 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Trójkąt ma podstawę ${base} cm i wysokość ${height} cm. Jakie jest jego pole?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Najpierw ${base} × ${height} = ${base * height}, potem dzielimy przez 2 i dostajemy ${answer}.`,
+      explanation: `Najpierw ${base} · ${height} = ${base * height}, potem dzielimy przez 2 i dostajemy ${answer}.`,
       steps: [
-        `Pomnóż podstawę i wysokość: ${base} × ${height} = ${base * height}.`,
+        `Pomnóż podstawę i wysokość: ${base} · ${height} = ${base * height}.`,
         'Podziel wynik przez 2.',
         `Otrzymujesz ${answer} cm².`
       ],
@@ -2736,10 +2828,10 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Równoległobok ma podstawę ${base} cm i wysokość ${height} cm. Jakie jest jego pole?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Pole równoległoboku to podstawa razy wysokość, więc ${base} × ${height} = ${answer}.`,
+      explanation: `Pole równoległoboku to podstawa razy wysokość, więc ${base} · ${height} = ${answer}.`,
       steps: [
         'Wybierz podstawę i odpowiadającą jej wysokość.',
-        `Pomnóż ${base} × ${height}.`,
+        `Pomnóż ${base} · ${height}.`,
         `Wynik to ${answer} cm².`
       ],
       unit: 'cm²',
@@ -2758,7 +2850,7 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Trapez ma podstawy ${longerBase} cm i ${shorterBase} cm oraz wysokość ${height} cm. Jakie jest jego pole?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Dodajemy podstawy, dzielimy przez 2 i mnożymy przez wysokość: ((${longerBase} + ${shorterBase}) ÷ 2) × ${height} = ${answer}.`,
+      explanation: `Dodajemy podstawy, dzielimy przez 2 i mnożymy przez wysokość: ((${longerBase} + ${shorterBase}) ÷ 2) · ${height} = ${answer}.`,
       steps: [
         `Dodaj podstawy: ${longerBase} + ${shorterBase} = ${longerBase + shorterBase}.`,
         `Podziel sumę przez 2: ${(longerBase + shorterBase) / 2}.`,
@@ -2778,7 +2870,7 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Romb ma bok ${side} cm. Jaki jest jego obwód?`,
       answer,
       answerDisplay: `${answer} cm`,
-      explanation: `Romb ma 4 równe boki, więc obwód to 4 × ${side} = ${answer}.`,
+      explanation: `Romb ma 4 równe boki, więc obwód to 4 · ${side} = ${answer}.`,
       steps: [
         'Pamiętaj, że wszystkie boki rombu są równe.',
         `Dodaj 4 takie same boki: ${side} + ${side} + ${side} + ${side}.`,
@@ -2798,9 +2890,9 @@ function createAreaGeneratorTask(difficulty) {
       prompt: `Koło ma promień ${radius} cm. Jakie jest jego pole? (użyj π = 3,14)`,
       answer,
       answerDisplay: `${formatPolishDecimal(answer)} cm²`,
-      explanation: `Liczymy π × r × r, więc 3,14 × ${radius} × ${radius} ≈ ${formatPolishDecimal(answer)}.`,
+      explanation: `Liczymy π · r · r, więc 3,14 · ${radius} · ${radius} ≈ ${formatPolishDecimal(answer)}.`,
       steps: [
-        `Podnieś promień do kwadratu: ${radius} × ${radius} = ${radius * radius}.`,
+        `Podnieś promień do kwadratu: ${radius} · ${radius} = ${radius * radius}.`,
         'Pomnóż wynik przez 3,14.',
         `Dostajesz około ${formatPolishDecimal(answer)} cm².`
       ],
@@ -2818,7 +2910,7 @@ function createAreaGeneratorTask(difficulty) {
     prompt: `Prostokąt ma boki ${a} cm i ${b} cm. Jaki jest jego obwód?`,
     answer,
     answerDisplay: `${answer} cm`,
-    explanation: `Obwód prostokąta to 2a + 2b, więc 2 × ${a} + 2 × ${b} = ${answer}.`,
+    explanation: `Obwód prostokąta to 2a + 2b, więc 2 · ${a} + 2 · ${b} = ${answer}.`,
     steps: [
       `Dodaj dwa dłuższe boki: ${a} + ${a} = ${2 * a}.`,
       `Dodaj dwa krótsze boki: ${b} + ${b} = ${2 * b}.`,
@@ -3027,7 +3119,7 @@ function createDecimalGeneratorTask(difficulty) {
       prompt: `${formatDecimal(value)} kg to ile gramów?`,
       answer,
       answerDisplay: `${answer} g`,
-      explanation: `1 kg to 1000 g, więc ${formatDecimal(value)} × 1000 = ${answer}.`,
+      explanation: `1 kg to 1000 g, więc ${formatDecimal(value)} · 1000 = ${answer}.`,
       steps: [
         'Zapamiętaj: 1 kg = 1000 g.',
         `Pomnóż ${formatDecimal(value)} przez 1000.`,
@@ -3047,7 +3139,7 @@ function createDecimalGeneratorTask(difficulty) {
       prompt: `${formatDecimal(value)} m to ile centymetrów?`,
       answer,
       answerDisplay: `${answer} cm`,
-      explanation: `1 metr to 100 cm, więc ${formatDecimal(value)} × 100 = ${answer}.`,
+      explanation: `1 metr to 100 cm, więc ${formatDecimal(value)} · 100 = ${answer}.`,
       steps: [
         'Zapamiętaj: 1 m = 100 cm.',
         `Pomnóż ${formatDecimal(value)} przez 100.`,
@@ -3067,7 +3159,7 @@ function createDecimalGeneratorTask(difficulty) {
       prompt: `${formatDecimal(value)} godziny to ile minut?`,
       answer,
       answerDisplay: `${answer} min`,
-      explanation: `1 godzina to 60 minut, więc ${formatDecimal(value)} × 60 = ${answer}.`,
+      explanation: `1 godzina to 60 minut, więc ${formatDecimal(value)} · 60 = ${answer}.`,
       steps: [
         'Zapamiętaj: 1 godzina = 60 minut.',
         `Pomnóż ${formatDecimal(value)} przez 60.`,
@@ -3110,11 +3202,11 @@ function createCubeGeneratorTask(difficulty) {
       prompt: `Sześcian ma krawędź ${edge} cm. Jakie jest jego pole całkowite?`,
       answer,
       answerDisplay: `${answer} cm²`,
-      explanation: `Jedna ściana ma pole ${edge} × ${edge} = ${faceArea}, a ścian jest 6, więc wynik to ${answer}.`,
+      explanation: `Jedna ściana ma pole ${edge} · ${edge} = ${faceArea}, a ścian jest 6, więc wynik to ${answer}.`,
       steps: [
-        `Oblicz pole jednej ściany: ${edge} × ${edge} = ${faceArea}.`,
+        `Oblicz pole jednej ściany: ${edge} · ${edge} = ${faceArea}.`,
         'Pamiętaj, że sześcian ma 6 ścian.',
-        `Pomnóż 6 × ${faceArea} = ${answer}.`
+        `Pomnóż 6 · ${faceArea} = ${answer}.`
       ],
       unit: 'cm²',
       placeholder: 'np. 54'
@@ -3131,9 +3223,9 @@ function createCubeGeneratorTask(difficulty) {
     prompt: `Prostopadłościan ma wymiary ${length} cm, ${width} cm i ${height} cm. Jakie jest jego pole całkowite?`,
     answer,
     answerDisplay: `${answer} cm²`,
-    explanation: `Liczymy trzy pary ścian: 2 × (${length} × ${width} + ${length} × ${height} + ${width} × ${height}) = ${answer}.`,
+    explanation: `Liczymy trzy pary ścian: 2 · (${length} · ${width} + ${length} · ${height} + ${width} · ${height}) = ${answer}.`,
     steps: [
-      `Policz pola trzech różnych ścian: ${length} × ${width}, ${length} × ${height}, ${width} × ${height}.`,
+      `Policz pola trzech różnych ścian: ${length} · ${width}, ${length} · ${height}, ${width} · ${height}.`,
       'Dodaj te pola i pomnóż przez 2, bo każda taka ściana występuje dwa razy.',
       `Wynik to ${answer} cm².`
     ],
